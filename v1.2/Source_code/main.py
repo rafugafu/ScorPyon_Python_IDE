@@ -10,6 +10,9 @@ from runner import run_and_get_errors
 import keyword as kw
 import traceback as tb
 import os
+# import getpass (if it was local installation)
+# os.chdir(f{'/home/{getpass.getuser()}/.local/share/ScorPyon/'}) (if it was local installation)
+# os.chdir('/usr/share/ScorPyon/') (if it was system-wide installation)
 class ScorPyonFontError(Exception):
 	pass
 class ShowScorPyonSourceCodeError(Exception):
