@@ -13,7 +13,7 @@ import os
 import getpass
 user = getpass.getuser()
 # os.chdir('/usr/share/ScorPyon/') (if system-wide installation)
-# os.chdir(f'/home/{user}/.local/share/ScorPyon') (if local installation)
+# os.chdir('/home/{user}/.local/share/ScorPyon') (if local installation)
 class ScorPyonFontError(Exception):
 	pass
 class ShowScorPyonSourceCodeError(Exception):
@@ -37,11 +37,10 @@ try:
 		file = open(f'/home/{user}/.local/ScorPyon/prefs.txt', 'r')
 	except:
 		file = open(f'/home/{user}/.local/ScorPyon/prefs.txt', 'w+')
-		file.write('orange\ncyan\n#00ff00\nwhite\nlight blue\nred\nyellow\ncyan\npython3')
+		file.write('orange\ncyan\n#00ff00\nwhite\nlight blue\nred\nyellow\ncyan\nblack\nwhite\npython3')
 		file.close()
 	file = open(f'/home/{user}/.local/ScorPyon/prefs.txt', 'r')
 	prefs = file.read().split('\n')
-	print(prefs)
 	kc = prefs[0]
 	cc = prefs[1]
 	icc = prefs[2]
@@ -50,7 +49,9 @@ try:
 	vfc = prefs[5]
 	ffg = prefs[6]
 	fbg = prefs[7]
-	interpreter = prefs[8]
+	b = prefs[8]
+	f = prefs[9]
+	interpreter = prefs[10]
 	text_to_find = None
 	def wc():
 		global kc
@@ -61,12 +62,15 @@ try:
 		global vfc
 		global ffg
 		global fbg
+		global b
+		global f
 		global interpreter
 		global user
-		file = open(f'/home/{user}/.local/ScorPyon/prefs.txt', 'r+')
-		list = [kc, cc, icc, fbc, bbc, vfc, ffg, fbg, interpreter]
+		file = open(f'/home/{user}/.local/ScorPyon/prefs.txt', 'w+')
+		list = [kc, cc, icc, fbc, bbc, vfc, ffg, fbg, b, f, interpreter]
 		for item in list:
 			file.write(item + '\n')
+		file.close()
 	def cfs(f, s):
 		global code
 		global shellin
@@ -95,6 +99,8 @@ try:
 		global ffg
 		global fbg
 		global code
+		global f
+		global b
 		global shellin
 		global shellout
 		nc = colour_chooser.askcolor(title = 'Choose a colour')[1]
@@ -112,10 +118,12 @@ try:
 			elif c == 'vfc':
 				vfc = nc
 			elif c == 'b':
+				b = nc
 				code.configure(bg = nc)
 				shellin.configure(bg = nc)
 				shellout.configure(bg = nc)
 			elif c == 'f':
+				f = nc
 				code.configure(fg = nc)
 				shellin.configure(fg = nc)
 				shellout.configure(fg = nc)
@@ -167,7 +175,7 @@ try:
 				interpreter = inpt
 				mb.showinfo('Success!', f'Interpreter successfully changed to {inpt}')
 			except:
-				mb.showerror('Error', f'Interpreter remained {interpreter}. This could have happened if the interpreter specified ({inpt}) was not included in: python3, python3.6, python3.7, python3.8, python3.9, python3.10 or was not included in your system path.')
+				mb.showerror('Error', f'Interpreter remained {interpreter}. This could have happened if the interpreter specified: ({inpt}) was not included in: python3, python3.6, python3.7, python3.8, python3.9, python3.10 or was not included in your system path.')
 	def prf(event = None):
 		global code
 		global shellin
@@ -197,7 +205,7 @@ try:
 		e = tk.Checkbutton(gt, text = 'Highlight Text Inside Brackets               ', font = 'Monospace', command = lambda: setvar('hb'))
 		e.grid(column = 0, row = 4)
 		f = tk.Button(gt, text = 'Toggle GUI outputs\nand errors', font = 'Monospace', command = goe).grid(column = 0, row = 5)
-		g = tk.Label(ct, text = '"""Select an option for the Change Button to show"""\nWARNING: COLOURS WILL REMAIN SAVED UNTIL YOU CHANGE THEM EVEN IF YOU RESTART SCORPYON.\nChange colour of:', font = 'Monospace').grid(column = 0, row = 0)
+		g = tk.Label(ct, text = '"""Select an option for the Change Button to show"""\nChange colour of:', font = 'Monospace').grid(column = 0, row = 0)
 		if hk == True:
 			a.select()
 		if hvf == True:
@@ -706,18 +714,18 @@ try:
 	hist_tab = ttk.Frame(tabs)
 	tabs.add(hist_tab, text = 'History')
 	tabs.grid(column = 0, row = 0)
-	code = st.ScrolledText(code_tab, width = 90, height = 50, wrap = tk.WORD, fg = 'white', bg = 'black', insertbackground = 'white', font = ('Ubuntu Medium', 12))
+	code = st.ScrolledText(code_tab, width = 90, height = 50, wrap = tk.WORD, fg = f, bg = b, insertbackground = 'white', font = ('Ubuntu Medium', 12))
 	code.grid(column = 0, row = 0)
 	code.insert('end', '# \'ScorPyon\' Python IDE')
 	code.bind('<KeyRelease>', kp)
 	code.bind('<Button-3>', right_clicked_main_code)
 	tk.Label(shell_tab, text = 'In: ', font = ('Sans', 20)).grid(column = 0, row = 0)
-	shellin = st.ScrolledText(shell_tab, wrap = tk.WORD, fg = 'white', bg = 'black', insertbackground = 'white', font = ('Ubuntu Medium', 12))
+	shellin = st.ScrolledText(shell_tab, wrap = tk.WORD, fg = f, bg = b, insertbackground = 'white', font = ('Ubuntu Medium', 12))
 	shellin.grid(column = 1, row = 0)
 	shellin.bind('<KeyRelease>', kp)
 	out = tk.Label(shell_tab, text = 'Out: ', font = ('Sans', 20))
 	out.grid(column = 0, row = 1)
-	shellout = st.ScrolledText(shell_tab, wrap = tk.WORD, fg = 'white', bg = 'black', insertbackground = 'white', font = ('Ubuntu Medium', 12), state = tk.DISABLED)
+	shellout = st.ScrolledText(shell_tab, wrap = tk.WORD, fg = f, bg = b, insertbackground = 'white', font = ('Ubuntu Medium', 12), state = tk.DISABLED)
 	shellout.grid(column = 1, row = 1)
 	rcmin = tk.Menu(shell_tab, tearoff = 0)
 	rcmin.add_command(label = 'Clear', command = lambda: shellin.delete(1.0, 'end'))
