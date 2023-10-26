@@ -1,3 +1,3 @@
 # ScorPyon_Python_IDE
 Simple Python IDE for linux
-WARNING: INSTALLATION FILES ONLY TESTED ON XUBUNTU 22.04 LTS
+(installation files only tested on ubuntu 22.04 and ubuntu 18.04)
