@@ -660,7 +660,10 @@ try:
 	def clt(nt):
 		global title
 		if not nt == '':
-			root.title('ScorPyon' + ' - ' + nt)
+			try:
+				root.title('ScorPyon' + ' - ' + nt)
+			except:
+				pass
 		else:
 			root.title('ScorPyon - Untitled')
 		title = nt
@@ -701,11 +704,14 @@ try:
 			lld()
 	def sv(nm):
 		if not nm == '':
-			file = open(nm, 'w')
-			file.writelines(code.get(1.0, tk.END))
-			file.close()
-			clt(nm)
-			tabs.select(code_tab)
+			try:
+				file = open(nm, 'w')
+				file.writelines(code.get(1.0, tk.END))
+				file.close()
+				clt(nm)
+				tabs.select(code_tab)
+			except:
+				pass
 	def ssv(event = None):
 		global defaultdir
 		fn = fd.asksaveasfilename(initialdir = defaultdir, title = 'Save As', filetypes = (('Python Files', '*.py'), ('Python Files', '*.pyw')))
