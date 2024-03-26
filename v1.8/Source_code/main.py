@@ -13,7 +13,7 @@ import traceback as tb
 import os
 import getpass
 user = getpass.getuser()
-# os.chdir('/home/{user}/.local/share/ScorPyon/') (if local installation)
+# os.chdir(f'/home/{user}/.local/share/ScorPyon/') (if local installation)
 # os.chdir('/usr/share/ScorPyon (if system-wide installation)
 class ScorPyonFontError(Exception):
 	pass
