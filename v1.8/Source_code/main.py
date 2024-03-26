@@ -13,7 +13,8 @@ import traceback as tb
 import os
 import getpass
 user = getpass.getuser()
-os.chdir('/usr/share/ScorPyon/')
+# os.chdir('/home/{user}/.local/share/ScorPyon/') (if local installation)
+# os.chdir('/usr/share/ScorPyon (if system-wide installation)
 class ScorPyonFontError(Exception):
 	pass
 class ShowScorPyonSourceCodeError(Exception):
@@ -49,7 +50,8 @@ try:
 					mb.showerror('Error', 'That directory does not exist')
 					pass
 				else:
-					os.chdir('/usr/share/ScorPyon/')
+					# os.chdir('/home/{user}/.local/share/ScorPyon/') (if local installation)
+					# os.chdir('/usr/share/ScorPyon (if system-wide installation)
 					break
 			else:
 				mb.showerror('Error', 'Got blank')
